@@ -1,6 +1,7 @@
 const express = require('express');
 const usersRouter = require('./routes/users');
 const walletsRouter = require('./routes/wallets');
+const transactionsRouter = require('./routes/transactions');
 const app = express();
 app.use(express.json());
 
@@ -12,6 +13,7 @@ app.get('/', (req, res) => {
 //Module routes
 app.use('/users', usersRouter);
 app.use('/wallets', walletsRouter);
+app.use('/transactions', transactionsRouter);
 
 /**Test Db connection
 app.get('/db-test', async (req, res)=> {

@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS transactions (
     id SERIAL PRIMARY KEY,
+    from_wallet_id INT REFERENCES wallets(id) ON DELETE CASCADE,
+    to_wallet_id INT REFERENCES wallets(id) ON DELETE CASCADE,
     wallet_id INT NOT NULL REFERENCES wallets(id) ON DELETE CASCADE,
     type VARCHAR(20) NOT NULL CHECK (type IN ('buy','send','receive','withdraw')),
     amount NUMERIC(12,2) NOT NULL CHECK (amount > 0),

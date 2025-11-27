@@ -5,3 +5,6 @@ CREATE TABLE IF NOT EXISTS wallets (
     currency VARCHAR(10) DEFAULT 'COINX',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+AlTER TABLE wallets
+ADD CONSTRAINT unique_user_wallet UNIQUE (user_id);
