@@ -1,6 +1,6 @@
 const express = require('express');
-const userRoutes = require('./routes/users');
-
+const usersRouter = require('./routes/users');
+const walletsRouter = require('./routes/wallets');
 const app = express();
 app.use(express.json());
 
@@ -10,7 +10,8 @@ app.get('/', (req, res) => {
 });
 
 //Module routes
-app.use('/users', userRoutes);
+app.use('/users', usersRouter);
+app.use('/wallets', walletsRouter);
 
 /**Test Db connection
 app.get('/db-test', async (req, res)=> {
