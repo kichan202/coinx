@@ -1,13 +1,18 @@
 const express = require('express');
-const pool = require('./db');
-const app = express();
-const PORT = 3000;
+const userRoutes = require('./routes/users');
 
+const app = express();
+app.use(express.json());
+
+//health check route
 app.get('/', (req, res) => {
   res.send('Coin X backend is running 🚀');
 });
 
-//Test Db connection
+//Module routes
+app.use('/users', userRoutes);
+
+/**Test Db connection
 app.get('/db-test', async (req, res)=> {
   try{
     const result = await pool.query('SELECT NOW()');
@@ -17,7 +22,8 @@ app.get('/db-test', async (req, res)=> {
     res.status(500).send('Database connection failed');
   }
 });
-
+**/
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
