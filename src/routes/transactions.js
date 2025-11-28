@@ -44,8 +44,8 @@ router.post('/', async (req, res) => {
 
         //record the transaction
         const result = await pool.query(
-            'INSERT INTO transactions (from_wallet_id, to_wallet_id, wallet_id, type, amount) VALUES ($1, $2, $3, $4, $5) RETURNING id, from_wallet_id, to_wallet_id, type, amount, created_at',
-            [from_wallet_id, to_wallet_id, from_wallet_id, type, amount]   
+           'INSERT INTO transactions (from_wallet_id, to_wallet_id, type, amount) VALUES ($1, $2, $3, $4) RETURNING id, from_wallet_id, to_wallet_id, type, amount, created_at',
+           [from_wallet_id, to_wallet_id, type, amount]   
         );
 
         // Commit the transaction
