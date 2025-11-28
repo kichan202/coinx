@@ -76,4 +76,31 @@ router.get('/:id', async (req, res) => {
     } 
 });
 
+
+//allow filtering by wallet or date range
+router.get('/', async (req, res) => {
+  try {
+    const { wallet_id, start_date, end_date } = req.query;
+    let query = 'SELECT * FROM transactions WHERE 1=1';
+    const params = [];
+    if (wallet_id) {
+      params.push(wallet_id);
+      query += ` AND (from_wallet_id = $${params.length} OR to_wallet_id = $${params.length})`;
+    }
+    if (start_date) {
+      params.push(start_date);
+      query += ` AND created_at >= $${params.length}`;
+    }
+    if (end_date) {
+      params.push(end_date);
+      query += ` AND created_at <= $${params.length}`;
+    }
+    const result = await pool.query(query, params);
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Filter transactions error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
