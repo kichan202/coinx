@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS wallets (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    balance NUMERIC(12,2) DEFAULT 0,
+    currency VARCHAR(10) DEFAULT 'COINX',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+AlTER TABLE wallets
+ADD CONSTRAINT unique_user_wallet UNIQUE (user_id);
